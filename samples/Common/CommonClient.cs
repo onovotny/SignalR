@@ -121,13 +121,13 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
             var connection = new Connection(url + "/echo");
             connection.TraceWriter = _traceWriter;
             connection.Received += (data) => connection.TraceWriter.WriteLine(data);
-            connection.CookieContainer = handler.CookieContainer;
+            //connection.CookieContainer = handler.CookieContainer;
             await connection.Start();
             await connection.Send("sending to AuthenticatedEchoConnection");
 
             var hubConnection = new HubConnection(url);
             hubConnection.TraceWriter = _traceWriter;
-            hubConnection.CookieContainer = handler.CookieContainer;
+            //hubConnection.CookieContainer = handler.CookieContainer;
 
             var hubProxy = hubConnection.CreateHubProxy("AuthHub");
             hubProxy.On<string, string>("invoked", (connectionId, date) => hubConnection.TraceWriter.WriteLine("connectionId={0}, date={1}", connectionId, date));
@@ -145,7 +145,7 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
 
             // Windows Auth is not supported on SL and WindowsStore apps
 #if !SILVERLIGHT && !NETFX_CORE
-            hubConnection.Credentials = CredentialCache.DefaultCredentials;
+            //hubConnection.Credentials = CredentialCache.DefaultCredentials;
 #endif
             var hubProxy = hubConnection.CreateHubProxy("AuthHub");
             hubProxy.On<string, string>("invoked", (connectionId, date) => hubConnection.TraceWriter.WriteLine("connectionId={0}, date={1}", connectionId, date));

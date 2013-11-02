@@ -60,18 +60,6 @@
     <WinRTSDKInstalled Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\WindowsXaml')">false</WinRTSDKInstalled>
   </PropertyGroup>
 
-  <ItemDefinitionGroup>
-    <Projects>
-      <Build>true</Build>
-      <!-- RunFxCop is only relevant if Build also evaluates to true -->
-      <RunFxCop>true</RunFxCop>
-      <Sample>false</Sample>
-      <BuildTargets>Build</BuildTargets>
-      <BuildProperties>Configuration=$(Configuration);ArtifactsDir=$(ProjectArtifactsDir);SolutionDir=$(ProjectRoot)\;$(ExtraProperties)</BuildProperties>
-      <CopyArtifacts>true</CopyArtifacts>
-      <Platform>Net45</Platform>
-    </Projects>
-  </ItemDefinitionGroup>
 
   <ItemGroup>
     <!-- Platform Specific Client Projects -->
@@ -453,7 +441,6 @@
 
     <ItemGroup>
       <XamarinArtifacts Include="$(ArtifactsDir)\Microsoft.AspNet.SignalR.Client.Portable\Microsoft.AspNet.SignalR.Client.dll;
-                          $(ArtifactsDir)\Microsoft.AspNet.SignalR.Client.Portable\Microsoft.AspNet.SignalR.Client.xml;
                           $(ArtifactsDir)\Microsoft.AspNet.SignalR.Client.Portable\System.Net.Http.Extensions.dll;
                           $(ArtifactsDir)\Microsoft.AspNet.SignalR.Client.Portable\Newtonsoft.Json.dll">
       </XamarinArtifacts>
@@ -461,6 +448,6 @@
 
     <Copy SourceFiles="@(XamarinArtifacts)" DestinationFolder="$(XamarinDir)\SignalRPackage\component\lib\mobile"/>
 
-    <Exec Command='$(XamarinDir)\xamarin-component\xamarin-component.exe package "$(ProjectArtifactsDir)"' ContinueOnError="true" />
+    <Exec Command='mono $(XamarinDir)\xamarin-component\xamarin-component.exe package "$(XamarinDir)\SignalRPackage\component"' ContinueOnError="true" />
   </Target>
 </Project>
